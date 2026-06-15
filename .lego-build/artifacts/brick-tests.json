@@ -1,0 +1,16 @@
+{
+  "app-shell":        {"passed": true, "evidence": "boots clean: CQ.app + all 6 globals present, all 8 sections + screens registered, intake active on first load, content.json fetched into CQ.content"},
+  "theme-kit":        {"passed": true, "evidence": "styles applied (vibrant indigo/amber render confirmed by screenshot), screen system + stat-bar + companion glow classes active"},
+  "game-state":       {"passed": true, "evidence": "reset/set/clearNode/persist round-trip; localStorage key written; stat=20 after 1 node; pub/sub works"},
+  "fx-kit":           {"passed": true, "evidence": "loaded as CQ.fx; consumed by all mini-games and companion with zero console errors during full screen tour"},
+  "content-pack":     {"passed": true, "evidence": "valid JSON; CQ.content has archetypes(4)+thoughtBuster+starPrompts+strengths; archetype keys match state"},
+  "intake-screen":    {"passed": true, "evidence": "mounts; mapEventToArchetype maps interview/presentation/conversation/date -> interrogator/critic/gatekeeper/unknown correctly"},
+  "companion-system": {"passed": true, "evidence": "render mounts; levelUp() raises level 0->2 and grows badges; subscribes to state"},
+  "world-map":        {"passed": true, "evidence": "mounts; 5 nodes; boss gating; restores cleared nodes from persisted state"},
+  "breathe-runner":   {"passed": true, "evidence": "mounts canvas screen without throwing; rafLoop + completion wired to clearNode/levelUp/showScreen"},
+  "thought-buster":   {"passed": true, "evidence": "mounts; reads CQ.content.thoughtBuster with inline fallback; no errors"},
+  "power-up-lab":     {"passed": true, "evidence": "mounts; reads CQ.content.strengths; crystal FX + completion wired"},
+  "star-forge":       {"passed": true, "evidence": "mounts; STAR ordering puzzle from CQ.content.starPrompts; drag+tap+keyboard; no errors"},
+  "boss-battle":      {"passed": true, "evidence": "mounts; DoD-2 proven: interrogator vs critic boss SVGs + response text are visibly distinct; {event} token substitution; victory -> 100% stat"},
+  "dashboard":        {"passed": true, "evidence": "computeStat() returns number; renderBar header bar; full readiness screen mounts; persisted restore"}
+}

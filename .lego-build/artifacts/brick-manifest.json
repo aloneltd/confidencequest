@@ -1,0 +1,275 @@
+{
+  "set_name": "ConfidenceQuest",
+  "bricks": [
+    {
+      "id": "app-shell",
+      "name": "App Shell & Screen Router",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          ".lego-build/artifacts/box-art.json",
+          "css/theme.css",
+          "js/game-state.js"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "index.html",
+          "js/app.js"
+        ]
+      },
+      "covers_dod": [1],
+      "purpose": "The single static HTML entry point that boots the game, mounts all screens, and swaps between intake, world-map, mini-games, boss-battle, dashboard, and customization sections.",
+      "build_notes": "index.html holds one <main> with hidden <section> screens; js/app.js exposes showScreen(id) doing hard section swaps (no router lib), instantiates GameState on load, links theme.css, and is the only file with a DOMContentLoaded bootstrap. Zero build step — open file or static-host directly."
+    },
+    {
+      "id": "theme-kit",
+      "name": "Theme & Design Tokens",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          ".lego-build/artifacts/box-art.json"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "css/theme.css"
+        ]
+      },
+      "covers_dod": [1],
+      "purpose": "Locked palette, typography, spacing tokens, and responsive layout primitives every screen and Companion visual state shares.",
+      "build_notes": "CSS custom properties on :root for amber #F5A623, teal #00C9B1, gold #FFD700, coral #FF6B6B, indigo bg #1A1040; flex/grid layout utilities, mobile-first media queries, and the companion-glow/level CSS classes (.companion--lvl0..5) consumed by companion-system."
+    },
+    {
+      "id": "game-state",
+      "name": "GameState Singleton & Persistence",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "localStorage:confidencequest.v1"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/game-state.js"
+        ]
+      },
+      "covers_dod": [1, 3],
+      "purpose": "The single shared source of truth — event name, archetype, companion config, level, badges, unlocks, per-node clear flags, and Confidence Stat — serialized to and restored from localStorage.",
+      "build_notes": "Plain-JS singleton GameState with load()/save()/serialize()/reset(); save() writes JSON to localStorage key confidencequest.v1 on every mutation; load() hydrates on boot with schema-version guard. Emits a lightweight pub/sub (subscribe/notify) so screens re-render on change. No framework, no server."
+    },
+    {
+      "id": "fx-kit",
+      "name": "Canvas FX & Juice Library",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "css/theme.css"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/fx-kit.js"
+        ]
+      },
+      "covers_dod": [1],
+      "purpose": "Shared zero-dependency Canvas 2D particle bursts, tween/animation helpers, screen-shake, and WebAudio sound cues reused by every mini-game and the level-up/boss-defeat moments.",
+      "build_notes": "Exports particleBurst(ctx,x,y,opts), rafLoop(updateFn) wrapping requestAnimationFrame, tween(from,to,ms,ease), and playCue(name) via a small WebAudio oscillator bank. Pure vanilla Canvas 2D + WebAudio, no assets required, so all modules share one juice vocabulary."
+    },
+    {
+      "id": "content-pack",
+      "name": "Static Content Data Pack",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          ".lego-build/artifacts/box-art.json"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "data/content.json"
+        ]
+      },
+      "covers_dod": [2],
+      "purpose": "All static game text keyed by archetype — Thought Buster reframe lines, per-archetype boss dialogue trees with {event} token slots, STAR prompts, and strengths prompts.",
+      "build_notes": "One JSON file: { archetypes: { interrogator, critic, gatekeeper, unknown }, thoughtBuster:[...], starPrompts:[...], strengths:[...] }. Boss dialogue and response options live under each archetype with {event} tokens substituted at runtime from GameState.eventName. Fetched once at boot (or inlined to avoid file:// fetch issues)."
+    },
+    {
+      "id": "intake-screen",
+      "name": "Intake & Archetype Mapper",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "data/content.json"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/intake.js"
+        ]
+      },
+      "covers_dod": [2],
+      "purpose": "First screen: player types their dread, free-text is mapped to one of four archetypes (Interrogator/Critic/Gatekeeper/Unknown), and the choice plus event name is written to GameState.",
+      "build_notes": "mapEventToArchetype(text) runs keyword matching (interview->interrogator, present/talk/pitch->critic, conversation/confront->gatekeeper, date->unknown, else unknown); writes GameState.eventName + GameState.archetype and advances to companion customization. Feeds DoD-2 skin/content selection downstream."
+    },
+    {
+      "id": "companion-system",
+      "name": "Companion Avatar, Leveling & Badges",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/fx-kit.js",
+          "css/theme.css"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/companion.js"
+        ]
+      },
+      "covers_dod": [1, 3],
+      "purpose": "Deep avatar customization (body type/color/expression + unlockable accessories), and the visual leveling engine that renders glow, badges, and evolved forms from GameState.level.",
+      "build_notes": "renderCompanion(el, state) maps GameState.level to a .companion--lvlN CSS class set (glow + tier) and draws earned badges/accessories; levelUp() bumps state, awards a badge, unlocks options, and fires fx-kit particleBurst + playCue. Customization UI writes body/color/expression back to GameState. The 'visible state change >=2 times' for DoD-1."
+    },
+    {
+      "id": "world-map",
+      "name": "World Map & Node Gating",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/companion.js",
+          "css/theme.css"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/world-map.js"
+        ]
+      },
+      "covers_dod": [1, 3],
+      "purpose": "The RPG level map of 5 nodes showing lock/clear/glow states, routing taps into each mini-game, and unlocking the Boss Battle only when the 4 training nodes are cleared.",
+      "build_notes": "renderMap() reads GameState.nodes flags to paint cleared nodes gold-glow and locked nodes dim; node tap calls app.showScreen(nodeId). isBossUnlocked() = all 4 training nodes cleared. Restores cleared-node visuals from persisted state on reopen (DoD-3) and shows companion portrait via companion-system."
+    },
+    {
+      "id": "breathe-runner",
+      "name": "Breathe Runner (Rhythm Platformer)",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/fx-kit.js"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/games/breathe-runner.js"
+        ]
+      },
+      "covers_dod": [1],
+      "purpose": "Side-scrolling rhythm mini-game where the avatar jumps/glides on breath cadence; clearing 4 inhale/hold/exhale cycles marks the node cleared and levels the Companion.",
+      "build_notes": "Self-contained Canvas 2D module on its own requestAnimationFrame loop (fx-kit.rafLoop); detects on-beat input against a breath timeline, on success calls GameState.clearNode('breathe-runner') + companion levelUp via shared state. DOM-fallback render path per box-art if time-boxed."
+    },
+    {
+      "id": "thought-buster",
+      "name": "Thought Buster (Wave Shooter)",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/fx-kit.js",
+          "data/content.json"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/games/thought-buster.js"
+        ]
+      },
+      "covers_dod": [1],
+      "purpose": "Wave-shooter where anxious-thought gremlins swarm; zapping one explodes it into a reframed thought, with combo multipliers, and clears the node on wave completion.",
+      "build_notes": "Canvas 2D module; spawns gremlins carrying anxious lines from content.json, on hit swaps to the paired reframe line + fx-kit particleBurst, tracks combo, then GameState.clearNode('thought-buster') + levelUp. Reads reframe pairs from content-pack."
+    },
+    {
+      "id": "power-up-lab",
+      "name": "Power-Up Lab (Strengths Collection)",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/fx-kit.js",
+          "data/content.json"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/games/power-up-lab.js"
+        ]
+      },
+      "covers_dod": [1],
+      "purpose": "Collection mini-game where the player names three real strengths/past wins to gather Courage Crystals that visibly upgrade the Companion before the final fight.",
+      "build_notes": "Mostly DOM + Canvas crystal FX; presents strengths prompts from content.json, collecting 3 crystals triggers fx-kit burst, GameState.clearNode('power-up-lab') and a companion stat/level bump. Lightweight, no real-time loop required."
+    },
+    {
+      "id": "star-forge",
+      "name": "STAR Forge (Behavioral-Interview Trainer)",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/fx-kit.js",
+          "data/content.json"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/games/star-forge.js"
+        ]
+      },
+      "covers_dod": [1],
+      "purpose": "Behavioral-interview trainer where the player snaps story beats into correct Situation -> Task -> Action -> Result order to forge a Courage weapon, scoring bonus for a complete answer.",
+      "build_notes": "Drag/tap-to-order DOM puzzle reading STAR prompt sets from content.json; validates S->T->A->R sequence, awards bonus for completeness, fires fx-kit forge burst, then GameState.clearNode('star-forge') + levelUp."
+    },
+    {
+      "id": "boss-battle",
+      "name": "Boss Battle (Archetype-Themed Fight)",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/fx-kit.js",
+          "data/content.json"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/games/boss-battle.js"
+        ]
+      },
+      "covers_dod": [1, 2],
+      "purpose": "Pokemon-style climax: the Doubt Boss themed to the player's archetype appears and the player charges a Courage Meter by choosing event-specific courage-responses until the boss falls.",
+      "build_notes": "Reads GameState.archetype to pick the boss skin (Interrogator/Critic/Gatekeeper/Unknown) and loads >=3 event-specific response options from content.json with {event} token substitution; turn loop fills Courage Meter, victory triggers final companion evolution, 100% stat, and a full fx-kit particle finale. Core of DoD-2."
+    },
+    {
+      "id": "dashboard",
+      "name": "Confidence Dashboard & Readiness Summary",
+      "reuse": "build",
+      "stud": {
+        "reads": [
+          "js/game-state.js",
+          "js/companion.js"
+        ]
+      },
+      "socket": {
+        "writes": [
+          "js/dashboard.js"
+        ]
+      },
+      "covers_dod": [1, 3],
+      "purpose": "Live Confidence Stat panel (0-100%), earned badges/unlocks summary, and the personalized post-victory readiness recap — all reflecting persisted GameState.",
+      "build_notes": "computeStat() derives 0-100% from cleared nodes + boss win (reaches 100% on full clear for DoD-1); renders badge count, event name, and stat % restored from localStorage on reopen (DoD-3). Subscribes to GameState pub/sub to re-render."
+    }
+  ]
+}

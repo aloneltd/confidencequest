@@ -1,0 +1,17 @@
+{
+  "active_killer": null,
+  "dod": [
+    {"id":"1","pass":true},
+    {"id":"2","pass":true},
+    {"id":"3","pass":true}
+  ],
+  "ninety_percent": true,
+  "morty_can_trigger": true,
+  "error_handling_ok": true,
+  "known_limitations": [
+    "Breathe Runner uses a 12-second breath cycle with a tight ±800ms jump window at the inhale peak; on very slow or CPU-throttled devices the rAF delta may drift, making the timing forgiving but the cadence instructions could lag behind the orb — not catastrophic, just possibly confusing on extreme hardware.",
+    "localStorage is required for DoD-3 persistence; if the user opens in a private/incognito tab or has storage blocked, CQ.state falls back silently to defaults and warns in the console, but the user sees no UI error explaining why their progress was not saved after reload.",
+    "Web Audio (playCue) is silently no-op until the first user gesture satisfies the browser autoplay policy; this is correct browser behavior and the game plays fine without sound, but the player has no indication that audio exists or that it is gated."
+  ],
+  "summary": "Ship. All 3 DoD pass, no active killers, 90% reliability confirmed, errors are known and non-catastrophic, naive user can complete the full loop unaided."
+}

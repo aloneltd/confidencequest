@@ -1,0 +1,250 @@
+{
+  "archetypes": {
+    "interrogator": {
+      "label": "The Interrogator",
+      "event": "interview",
+      "taunt": "Every gap in your resume is a weapon. I know all the questions you dread.",
+      "bossLines": [
+        "So you think you're ready for {event}? Let's see if your experience holds up under pressure.",
+        "I've seen hundreds walk through here. Most stumble on the basics. Can you even explain what you actually did at your last role?",
+        "Behavioral questions separate the prepared from the pretenders. Tell me about a time you failed. Go on — I'll wait.",
+        "This {event} isn't charity. Convince me you're the one. What have you built that mattered?"
+      ],
+      "responses": [
+        {
+          "text": "I'll anchor each answer with a specific story — Situation, Task, Action, Result — so every response lands with evidence, not vague claims.",
+          "courage": 28
+        },
+        {
+          "text": "I prepared two or three strong examples from my real experience. I'll pick the most relevant one for each question.",
+          "courage": 25
+        },
+        {
+          "text": "If I don't know an answer immediately, I'll say 'That's a great question — let me think for a second' and take a breath before responding.",
+          "courage": 22
+        },
+        {
+          "text": "I'll turn the table with a confident question of my own: 'What does success look like in the first 90 days?' This is a conversation, not an interrogation.",
+          "courage": 26
+        },
+        {
+          "text": "Gaps in my resume are part of my story, not a verdict. I'll own them with honesty and show what I learned.",
+          "courage": 24
+        },
+        {
+          "text": "I researched this role carefully. I'm ready to connect their problems directly to my skills — I'm solving their puzzle, not begging for approval.",
+          "courage": 27
+        }
+      ]
+    },
+    "critic": {
+      "label": "The Critic",
+      "event": "presentation",
+      "taunt": "They're already bored before you've started. One stumble and you'll lose the room forever.",
+      "bossLines": [
+        "You think this {event} will go smoothly? I've watched confident people fall apart the moment they feel every eye on them.",
+        "Your slides are a crutch. What happens when you forget your place mid-{event} and the silence swallows the room?",
+        "They can tell you're nervous. That shaky voice, the filler words — 'um', 'uh', 'basically' — they're counting every one.",
+        "A strong opening matters most. If your first thirty seconds of this {event} don't hook them, you've already lost."
+      ],
+      "responses": [
+        {
+          "text": "I'll open with a bold statement or a brief story that hooks the audience immediately — not with 'So today I'll be talking about…'",
+          "courage": 27
+        },
+        {
+          "text": "Nervous energy is just excitement in disguise. I'll channel it into presence — making eye contact with one friendly face at a time.",
+          "courage": 25
+        },
+        {
+          "text": "I know my material well enough to talk about it, not recite it. If I lose my place, I'll pause, breathe, and continue — the audience won't remember a two-second pause.",
+          "courage": 26
+        },
+        {
+          "text": "Filler words come from rushing. I'll deliberately slow down and treat silence as a tool — it signals confidence, not confusion.",
+          "courage": 24
+        },
+        {
+          "text": "I'll structure it as a problem → insight → action arc so even if nerves hit me, the skeleton of the talk carries the room.",
+          "courage": 28
+        },
+        {
+          "text": "The audience wants me to succeed — they're not rooting for failure. I'll treat this presentation as a gift I'm giving them, not a test I'm taking.",
+          "courage": 22
+        }
+      ]
+    },
+    "gatekeeper": {
+      "label": "The Gatekeeper",
+      "event": "conversation",
+      "taunt": "You'll either say too much or too little. Either way, something breaks that can't be fixed.",
+      "bossLines": [
+        "This {event} you've been avoiding? Every day you wait, the weight of it grows heavier.",
+        "What if they get defensive? What if your words come out wrong and this {event} destroys everything you've built?",
+        "You think you can stay calm when the tension rises? I'll be right there when your voice starts to crack.",
+        "Some things said in a {event} like this cannot be unsaid. Are you really prepared to open that door?"
+      ],
+      "responses": [
+        {
+          "text": "I'll lead with 'I' statements — 'I feel', 'I need', 'I noticed' — so I stay grounded in my own experience instead of putting them on the defensive.",
+          "courage": 27
+        },
+        {
+          "text": "I'll listen fully before I respond. Understanding their point of view doesn't mean agreeing with it — it means I'm taking this seriously.",
+          "courage": 25
+        },
+        {
+          "text": "If the conversation gets heated, I'm allowed to say 'I need a moment to collect my thoughts' — that's a sign of maturity, not weakness.",
+          "courage": 26
+        },
+        {
+          "text": "I'm not responsible for their reaction, only for how I show up. I can be honest and kind at the same time.",
+          "courage": 24
+        },
+        {
+          "text": "A difficult conversation handled with care actually deepens a relationship. Avoiding it is what slowly erodes trust.",
+          "courage": 28
+        },
+        {
+          "text": "I'll focus on the shared outcome we both want — not on winning the argument. Collaboration, not combat.",
+          "courage": 23
+        }
+      ]
+    },
+    "unknown": {
+      "label": "The Unknown",
+      "event": "date",
+      "taunt": "What if they see through you? What if you run out of things to say and the silence just… sits there?",
+      "bossLines": [
+        "A {event} is just rejection waiting to happen. Why put yourself through it?",
+        "What if this {event} reveals that you're actually less interesting than you imagine yourself to be?",
+        "You'll overthink every word you say. And even when it's going well, you'll be waiting for it to go wrong.",
+        "Vulnerability on a {event} is just handing someone a list of ways to hurt you. Is that really what you want?"
+      ],
+      "responses": [
+        {
+          "text": "I'll approach this with curiosity instead of audition anxiety — my job is to discover who they are, not to perform perfection.",
+          "courage": 26
+        },
+        {
+          "text": "Silence isn't failure — it's space. Real connection doesn't require constant talking. A comfortable pause is a good sign.",
+          "courage": 24
+        },
+        {
+          "text": "I'll be genuinely myself. If this doesn't click, that's useful information — not a verdict on my worth.",
+          "courage": 28
+        },
+        {
+          "text": "I'll ask real questions I'm actually curious about. People light up when someone is sincerely interested in their story.",
+          "courage": 22
+        },
+        {
+          "text": "Vulnerability isn't weakness — it's the only thing that makes real connection possible. I'll share something real when the moment feels right.",
+          "courage": 25
+        },
+        {
+          "text": "I want to enjoy this, not just survive it. Lightness is attractive. I'll let myself laugh and not take every quiet moment as a catastrophe.",
+          "courage": 27
+        }
+      ]
+    }
+  },
+  "thoughtBuster": [
+    {
+      "anxious": "I'm going to blank out completely and forget everything.",
+      "reframe": "Blanking is rare when you've prepared even a little. And if you do pause — a slow breath buys your memory time to come back. You've gotten through hard moments before."
+    },
+    {
+      "anxious": "Everyone will be able to tell how nervous I am.",
+      "reframe": "People are much worse at reading nerves than we think — studies consistently show observers underestimate others' anxiety. And even if they notice, nervous means you care, not that you're failing."
+    },
+    {
+      "anxious": "I'm going to say something stupid and embarrass myself.",
+      "reframe": "One awkward sentence doesn't define the whole interaction. People tend to remember the overall impression, not individual slip-ups — and they're usually too busy thinking about their own responses to catalog yours."
+    },
+    {
+      "anxious": "I'm not qualified / ready / good enough for this.",
+      "reframe": "The fact that you're here means someone — including you — believed otherwise. 'Ready' is rarely a feeling; it's usually a decision. You don't need to feel ready to show up well."
+    },
+    {
+      "anxious": "If this goes badly, it will ruin everything.",
+      "reframe": "One difficult interaction almost never ruins everything — that's anxiety doing catastrophic math. Most moments that feel defining turn out to be one data point among many."
+    },
+    {
+      "anxious": "I have to be perfect or it counts as failure.",
+      "reframe": "No one expects — or is impressed by — perfection. Authentic, slightly imperfect, and genuinely present beats polished but hollow every time. Give yourself the standard you'd give a friend."
+    },
+    {
+      "anxious": "They're going to judge me harshly the whole time.",
+      "reframe": "Most people are fundamentally on your side — they want the interaction to go well too. Judgment is usually far less pointed and lasting than anxiety tells us it will be."
+    },
+    {
+      "anxious": "I'll run out of things to say and there will be an awful silence.",
+      "reframe": "Silence feels longer to you than to anyone else. And asking a genuine question is always available to you. Curiosity about the other person is an inexhaustible resource."
+    },
+    {
+      "anxious": "My hands are shaking / my voice is trembling / I look scared.",
+      "reframe": "Physical symptoms of nerves usually peak in the first 60–90 seconds and then begin to calm as your body gets evidence that you're managing. You almost certainly look calmer than you feel."
+    },
+    {
+      "anxious": "I've failed at things like this before, so I'll fail again.",
+      "reframe": "Past difficulty is evidence you've survived hard things, not a reliable forecast of the future. You're also not the same person who walked into that earlier situation — you have more experience now."
+    },
+    {
+      "anxious": "What if they don't like me?",
+      "reframe": "Not every person clicking with every other person is how the world works — and that's fine. Being genuinely yourself gives the interaction the best possible chance of landing with someone it's actually meant for."
+    },
+    {
+      "anxious": "I should be over this by now — something is wrong with me.",
+      "reframe": "Social anxiety is the second most common anxiety experience in humans. 'Should' is a hard word — a lot of skilled, accomplished, beloved people feel exactly what you're feeling before exactly these kinds of moments."
+    }
+  ],
+  "starPrompts": [
+    {
+      "prompt": "Tell me about a time you solved a problem under pressure.",
+      "beats": {
+        "S": "Describe the specific situation: where you were, what the context was, and what was at stake. Keep it brief — one or two sentences to ground the story.",
+        "T": "Name your actual task or responsibility in that moment. What were YOU specifically accountable for solving? Not the team — you.",
+        "A": "Walk through the concrete steps YOU took. Use 'I' not 'we'. Show your thinking, your decisions, and your method — this is where most of your answer should live.",
+        "R": "State the outcome with specifics if you have them (numbers, timelines, feedback received). Then, if relevant, mention what you'd do differently — it shows self-awareness."
+      }
+    },
+    {
+      "prompt": "Describe a time you had to work with someone difficult or navigate a conflict.",
+      "beats": {
+        "S": "Set the scene: the role, the relationship, and why the difficulty mattered. Avoid framing the other person as a villain — focus on the dynamic, not the character.",
+        "T": "Clarify what you were responsible for achieving despite or through this conflict. What outcome depended on resolving it?",
+        "A": "Describe what you actually did step by step — how you approached the person, what you said, what you tried first versus what you adjusted. Be honest about the discomfort.",
+        "R": "Share how it resolved — relationship repaired, project completed, lesson carried forward. Even partial resolution is a valid result if you name what you learned."
+      }
+    },
+    {
+      "prompt": "Tell me about a time you took initiative or went beyond what was expected.",
+      "beats": {
+        "S": "Describe the situation where you noticed something that wasn't being addressed — a gap, an opportunity, a problem no one had assigned to anyone.",
+        "T": "Explain why you felt it was your place to act even when it wasn't explicitly your job. What was at risk if you didn't?",
+        "A": "Detail exactly what you did: who you talked to, what you built or proposed, how you got support or moved forward independently.",
+        "R": "Describe the impact of your initiative. Even if it wasn't adopted immediately, what changed, what was noticed, and what you proved you were capable of."
+      }
+    },
+    {
+      "prompt": "Describe a time you had to learn something new quickly or adapt to a significant change.",
+      "beats": {
+        "S": "Set the context: what was the change or unfamiliar territory, and why did the timeline or stakes make it genuinely challenging?",
+        "T": "Be specific about what you were expected to deliver despite not knowing the material yet. What was the real pressure you were working against?",
+        "A": "Show your learning process: how you identified what you needed to know, who you asked, what resources you used, and how you managed your own uncertainty without letting it block you.",
+        "R": "Describe what you produced and what it demonstrated. A partial win with a clear lesson learned is just as compelling as a full success."
+      }
+    }
+  ],
+  "strengths": [
+    "Think of a moment when someone came to you for help — what was it about you they trusted? What did you do for them that they couldn't easily do for themselves?",
+    "Name a skill or quality that you use so naturally it barely feels like a skill. (Sometimes the things we're best at feel obvious to us but rare to others.)",
+    "Recall a time you were proud of how you handled something difficult. What quality did that moment reveal about you that you want to carry into what's ahead?",
+    "What's something you've figured out the hard way that most people around you still haven't learned? That hard-won knowledge is a real strength.",
+    "Think of a project, moment, or piece of work you made that you felt genuinely good about. What did it take from you to make it? List at least two specific things.",
+    "Who has thanked you, praised you, or described you in a way that felt accurate and warm? What words did they use? Those words are reflecting something real back at you.",
+    "What's a challenge you've already survived that you didn't think you'd get through at the time? What does the fact that you're still here tell you about your resilience?",
+    "If your best friend were answering 'What is great about this person?' about you right now, what would they say without hesitation?"
+  ]
+}

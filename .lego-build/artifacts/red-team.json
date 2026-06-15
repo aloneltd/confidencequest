@@ -1,0 +1,54 @@
+{
+  "verdict": "Proceed",
+  "findings": [
+    {
+      "claim": "Replaying any already-cleared mini-game calls CQ.companion.levelUp() again without checking whether the node was already cleared. On a full run the player reaches level 5 legitimately. If they replay breathe-runner after completion, levelUp fires 0→1 a second time, borrowing a level that was meant for a later game. The later game still calls levelUp, so levels accumulate faster than intended. If total levelUp calls across the run exceed 6, the guard in levelUp() (companion.js:470) silently swallows the call — the boss-battle levelUp produces no visible change for the player.",
+      "severity": "P1",
+      "confidence": "high",
+      "locator": "js/games/breathe-runner.js:695-696, js/games/thought-buster.js:327-330, js/games/power-up-lab.js:695, js/games/star-forge.js:899-900, js/games/boss-battle.js:392 — none check CQ.state.nodes[id] before calling levelUp()",
+      "fix": "In each game's win handler, guard levelUp with: if (!CQ.state.nodes[nodeId]) { CQ.companion.levelUp(); } before calling clearNode. clearNode is idempotent so it is fine to call unconditionally. Alternatively add the guard inside companion.levelUp() itself by checking all-nodes-cleared count against current level."
+    },
+    {
+      "claim": "MutationObserver created in boss-battle mount() (boss-battle.js:637) is never disconnected. The local variable `obs` goes out of scope on unmount but the observer keeps a live reference to the detached _meterEl DOM node. Each time the player visits boss-battle and returns, a new observer is created. In a session where the player replays boss-battle (e.g. via the world-map after a reset) N observers accumulate.",
+      "severity": "P2",
+      "confidence": "high",
+      "locator": "js/games/boss-battle.js:637-641 (obs created), js/games/boss-battle.js:800-813 (unmount — no obs.disconnect())",
+      "fix": "Hoist `obs` to module scope alongside the other module-state vars. In unmount(), call obs.disconnect() and set obs = null."
+    },
+    {
+      "claim": "CQ.companion's module-level subscriber (_unsub) and _renderTarget are never explicitly cleaned up between screen transitions. When both world-map and dashboard mount, each calls CQ.companion.render(el), reassigning _renderTarget. The single subscriber then writes innerHTML into whichever element was most recently registered — which may be detached. This is wasted work but not a crash. However, if world-map is the active screen and the user triggers a state change, the companion re-renders into a potentially detached dashboard element until world-map's own subscribe re-triggers render().",
+      "severity": "P2",
+      "confidence": "medium",
+      "locator": "js/companion.js:411-431 (render/subscribe), js/world-map.js:425-436 (calls render), js/dashboard.js:256-266 (calls render) — neither unmount cleans up companion subscription",
+      "fix": "Add a CQ.companion.detach() method that sets _renderTarget = null and calls _unsub(). Call it from world-map.unmount() and dashboard.unmount(). Alternatively, return an unsubscribe handle from render() for callers to manage."
+    },
+    {
+      "claim": "Self-XSS via crafted localStorage: companion.js openCustomizer (line 601) concatenates unlock body/color names directly into an innerHTML string. The unlock arrays are accepted from localStorage with no value-level sanitization — only an Array.isArray check (game-state.js:108-110). A user who manually edits localStorage to inject HTML into unlocks.bodies can trigger script execution when the customizer renders.",
+      "severity": "P2",
+      "confidence": "high",
+      "locator": "js/companion.js:601 (body name concatenated into innerHTML), js/game-state.js:108-110 (array accepted without element validation)",
+      "fix": "Whitelist-filter each array element before using it in HTML: filter unlock arrays through a function that checks membership in the known catalogue (BASE_BODIES, BASE_COLORS, ALL_ACCESSORIES). Elements not in the catalogue are dropped. Alternatively, replace the innerHTML string build in renderCustomizer() with DOM API calls using textContent for each body/color label."
+    },
+    {
+      "claim": "intake.js enforces a 200-character maxlength via the HTML attribute (intake.js:243) but not in JavaScript. The handleSubmit() function does not truncate raw before storing it. A player who bypasses the HTML attribute (via DevTools or a browser extension) can store an arbitrarily long eventName in localStorage. The event name is displayed via textContent everywhere it appears (safe from XSS) but a very long name (e.g. 10 000 chars) will break the header banner layout on every screen that shows it, the world-map event banner (ellipsis overflow applies — mitigated), and the dashboard 'You're ready for <X>' heading (textContent assignment, no truncation).",
+      "severity": "P2",
+      "confidence": "medium",
+      "locator": "js/intake.js:162-184 (handleSubmit, no JS truncation), intake input maxlength attr at line 243",
+      "fix": "In handleSubmit(), after the empty-string check, add: if (raw.length > 200) { raw = raw.slice(0, 200); } before passing to CQ.state.set()."
+    },
+    {
+      "claim": "btn--sm class has min-height: 36px (theme.css:706). The intake example chips use btn--sm (intake.js:289). WCAG 2.5.5 target-size guidance recommends 44px. On touch devices with fat-finger input, the chips may be difficult to tap accurately. The chips are supplemental (user can type directly), so this is not a flow-breaking issue but may frustrate mobile users.",
+      "severity": "P2",
+      "confidence": "high",
+      "locator": "css/theme.css:706 (.btn--sm min-height: 36px), js/intake.js:287-291 (chips use btn--sm)",
+      "fix": "Raise btn--sm min-height to 44px, or override specifically for the chip row: add style min-height:44px to each chip button at intake.js:287."
+    },
+    {
+      "claim": "No fatal flaw found in the three DoD conditions. DoD-1: full run produces 5 levelUp calls (level 0→5), companion visibly changes at every level, 5 badges earned, stat reaches 100% — confirmed. DoD-2: 'job interview' maps to interrogator archetype (intake.js KEYWORD_RULES, line 17), boss-battle renders BOSS_SVGS.interrogator (distinct angular blue-grey shape), and content.json provides 6 interview-specific response options (all reference interview behaviors) — confirmed 3+ distinct options. 'presentation' maps to critic (line 25), BOSS_SVGS.critic is a visually distinct yellow-green blob — confirmed. DoD-3: all state (eventName, archetype, companion, level, badges, unlocks, nodes, stat) is persisted via localStorage on every mutation and rehydrated on boot (game-state.js load/mergeOntoDefaults) — confirmed.",
+      "severity": "P2",
+      "confidence": "high",
+      "locator": "box-art.md DoD-1/2/3 — all three conditions are met by the code as written",
+      "fix": "No fix needed. Noting here as confirmation evidence for the orchestrator."
+    }
+  ]
+}

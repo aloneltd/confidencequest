@@ -1,0 +1,194 @@
+{
+  "edges": [
+    {
+      "from": "theme-kit.css",
+      "to": "app-shell.styles",
+      "contract": "css/theme.css palette + layout tokens linked by index.html; :root custom properties present"
+    },
+    {
+      "from": "game-state.singleton",
+      "to": "app-shell.bootstrap",
+      "contract": "js/game-state.js exports GameState with load()/save(); app.js instantiates and hydrates on boot"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "intake-screen.mount",
+      "contract": "app.showScreen('intake') mounts intake; intake.js exposes init(container)"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "world-map.mount",
+      "contract": "app.showScreen('world-map') mounts map; world-map.js exposes init(container)"
+    },
+    {
+      "from": "world-map.customize-button",
+      "to": "companion-system.openCustomizer",
+      "contract": "world-map 'Customize' button calls CQ.companion.openCustomizer(el) to mount the customization UI as an overlay panel"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "dashboard.mount",
+      "contract": "app.showScreen('dashboard') mounts dashboard; dashboard.js exposes init(container)"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "breathe-runner.mount",
+      "contract": "app.showScreen('breathe-runner') hands a <canvas> to breathe-runner.start(canvas)"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "thought-buster.mount",
+      "contract": "app.showScreen('thought-buster') hands a <canvas> to thought-buster.start(canvas)"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "power-up-lab.mount",
+      "contract": "app.showScreen('power-up-lab') mounts power-up-lab UI/canvas"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "star-forge.mount",
+      "contract": "app.showScreen('star-forge') mounts star-forge ordering UI"
+    },
+    {
+      "from": "app-shell.router",
+      "to": "boss-battle.mount",
+      "contract": "app.showScreen('boss-battle') hands a <canvas> to boss-battle.start(canvas)"
+    },
+    {
+      "from": "content-pack.data",
+      "to": "intake-screen.content",
+      "contract": "data/content.json archetype labels available to intake mapper for confirmation copy"
+    },
+    {
+      "from": "intake-screen.archetype",
+      "to": "boss-battle.skin",
+      "contract": "GameState.archetype is one of interrogator|critic|gatekeeper|unknown; boss selects skin + options by it"
+    },
+    {
+      "from": "intake-screen.eventName",
+      "to": "dashboard.banner",
+      "contract": "GameState.eventName string rendered in dashboard banner and readiness summary"
+    },
+    {
+      "from": "intake-screen.eventName",
+      "to": "boss-battle.tokens",
+      "contract": "GameState.eventName substituted into {event} tokens of boss dialogue"
+    },
+    {
+      "from": "content-pack.data",
+      "to": "thought-buster.lines",
+      "contract": "data/content.json thoughtBuster anxious/reframe pairs schema {anxious, reframe}"
+    },
+    {
+      "from": "content-pack.data",
+      "to": "star-forge.prompts",
+      "contract": "data/content.json starPrompts as ordered S/T/A/R beat sets"
+    },
+    {
+      "from": "content-pack.data",
+      "to": "power-up-lab.prompts",
+      "contract": "data/content.json strengths prompt list"
+    },
+    {
+      "from": "content-pack.data",
+      "to": "boss-battle.dialogue",
+      "contract": "data/content.json archetypes.<id> boss dialogue tree + >=3 event-specific response options"
+    },
+    {
+      "from": "fx-kit.api",
+      "to": "breathe-runner.juice",
+      "contract": "fx-kit exports rafLoop/particleBurst/playCue consumed by the runner loop"
+    },
+    {
+      "from": "fx-kit.api",
+      "to": "thought-buster.juice",
+      "contract": "fx-kit particleBurst/playCue used on gremlin zap + wave clear"
+    },
+    {
+      "from": "fx-kit.api",
+      "to": "power-up-lab.juice",
+      "contract": "fx-kit particleBurst used on crystal collection"
+    },
+    {
+      "from": "fx-kit.api",
+      "to": "star-forge.juice",
+      "contract": "fx-kit forge burst + cue on correct STAR assembly"
+    },
+    {
+      "from": "fx-kit.api",
+      "to": "boss-battle.juice",
+      "contract": "fx-kit particle finale + screen-shake on boss defeat"
+    },
+    {
+      "from": "fx-kit.api",
+      "to": "companion-system.juice",
+      "contract": "fx-kit particleBurst + playCue fired on companion levelUp"
+    },
+    {
+      "from": "game-state.api",
+      "to": "intake-screen.write",
+      "contract": "intake writes GameState.eventName + GameState.archetype then save()"
+    },
+    {
+      "from": "game-state.api",
+      "to": "companion-system.read",
+      "contract": "companion reads GameState.level/badges/unlocks/customization; writes customization back"
+    },
+    {
+      "from": "game-state.api",
+      "to": "world-map.read",
+      "contract": "world-map reads GameState.nodes clear flags + bossUnlocked"
+    },
+    {
+      "from": "game-state.api",
+      "to": "dashboard.read",
+      "contract": "dashboard reads GameState stat/badges/eventName via computeStat()"
+    },
+    {
+      "from": "breathe-runner.progress",
+      "to": "game-state.write",
+      "contract": "calls GameState.clearNode('breathe-runner') + companion levelUp + save()"
+    },
+    {
+      "from": "thought-buster.progress",
+      "to": "game-state.write",
+      "contract": "calls GameState.clearNode('thought-buster') + levelUp + save()"
+    },
+    {
+      "from": "power-up-lab.progress",
+      "to": "game-state.write",
+      "contract": "calls GameState.clearNode('power-up-lab') + levelUp + save()"
+    },
+    {
+      "from": "star-forge.progress",
+      "to": "game-state.write",
+      "contract": "calls GameState.clearNode('star-forge') + levelUp + save()"
+    },
+    {
+      "from": "boss-battle.victory",
+      "to": "game-state.write",
+      "contract": "on boss defeat sets GameState.bossCleared, stat=100, final evolution + save()"
+    },
+    {
+      "from": "companion-system.visual",
+      "to": "world-map.portrait",
+      "contract": "world-map calls companion.renderCompanion(portraitEl, GameState) for the map portrait"
+    },
+    {
+      "from": "companion-system.visual",
+      "to": "dashboard.portrait",
+      "contract": "dashboard calls companion.renderCompanion + reads badge/unlock summary"
+    },
+    {
+      "from": "world-map.gate",
+      "to": "boss-battle.unlock",
+      "contract": "boss-battle entry guarded by world-map.isBossUnlocked() (all 4 training nodes cleared)"
+    },
+    {
+      "from": "theme-kit.classes",
+      "to": "companion-system.styles",
+      "contract": ".companion--lvl0..5 glow/tier classes defined in theme.css consumed by renderCompanion"
+    }
+  ]
+}

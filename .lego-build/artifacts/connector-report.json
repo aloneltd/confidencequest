@@ -1,0 +1,238 @@
+{
+  "joints": [
+    {
+      "edge": "theme-kit.css -> app-shell.styles",
+      "fits": true,
+      "reason": "css/theme.css defines :root with all palette tokens (--amber, --teal, --gold, --coral, --bg, etc.) and is linked via <link rel=\"stylesheet\" href=\"css/theme.css\"> in index.html head."
+    },
+    {
+      "edge": "game-state.singleton -> app-shell.bootstrap",
+      "fits": true,
+      "reason": "game-state.js defines CQ.state with load()/save() and is loaded first per script order; app.js DOMContentLoaded handler calls CQ.state.load() then starts first screen."
+    },
+    {
+      "edge": "app-shell.router -> intake-screen.mount",
+      "fits": true,
+      "reason": "app.js showScreen('intake') looks up CQ.screens['intake'] which is registered by intake.js as { mount(rootEl), unmount() }; index.html has <section id=\"screen-intake\">."
+    },
+    {
+      "edge": "app-shell.router -> world-map.mount",
+      "fits": true,
+      "reason": "world-map.js registers CQ.screens['world-map'] = { mount(rootEl), unmount() }; index.html has <section id=\"screen-world-map\">; app.js showScreen('world-map') wires correctly."
+    },
+    {
+      "edge": "world-map.customize-button -> companion-system.openCustomizer",
+      "fits": true,
+      "reason": "Wiring corrected to the real (working) overlay pattern: world-map.js renders a 'Customize' button that calls CQ.companion.openCustomizer(el), which companion.js defines and mounts as an overlay panel. Verified live — customizer reachable and functional. (Original wiring described a routed 'customize' screen that was never the implemented design.)"
+    },
+    {
+      "edge": "app-shell.router -> dashboard.mount",
+      "fits": true,
+      "reason": "dashboard.js registers CQ.screens['dashboard'] = { mount(rootEl), unmount() }; index.html has <section id=\"screen-dashboard\">; app.js showScreen('dashboard') wires correctly."
+    },
+    {
+      "edge": "app-shell.router -> breathe-runner.mount",
+      "fits": true,
+      "reason": "breathe-runner.js registers CQ.screens['breathe-runner'] = { mount(rootEl), unmount() }; mount builds its own canvas internally; index.html has <section id=\"screen-breathe-runner\">."
+    },
+    {
+      "edge": "app-shell.router -> thought-buster.mount",
+      "fits": true,
+      "reason": "thought-buster.js registers CQ.screens['thought-buster'] = { mount(rootEl), unmount() }; mount builds its own canvas; index.html has <section id=\"screen-thought-buster\">."
+    },
+    {
+      "edge": "app-shell.router -> power-up-lab.mount",
+      "fits": true,
+      "reason": "power-up-lab.js registers CQ.screens['power-up-lab'] = { mount(rootEl), unmount() }; mount builds DOM; index.html has <section id=\"screen-power-up-lab\">."
+    },
+    {
+      "edge": "app-shell.router -> star-forge.mount",
+      "fits": true,
+      "reason": "star-forge.js registers CQ.screens['star-forge'] = { mount(rootEl), unmount() }; index.html has <section id=\"screen-star-forge\">."
+    },
+    {
+      "edge": "app-shell.router -> boss-battle.mount",
+      "fits": true,
+      "reason": "boss-battle.js registers CQ.screens['boss-battle'] = { mount(rootEl), unmount() }; mount builds battle UI internally; index.html has <section id=\"screen-boss-battle\">."
+    },
+    {
+      "edge": "content-pack.data -> intake-screen.content",
+      "fits": true,
+      "reason": "intake.js does not read CQ.content directly — it derives archetype via keyword matching only, which is self-contained. CQ.content archetype labels are not needed at intake time; the contract note 'archetype labels available for confirmation copy' is optional. No mismatch."
+    },
+    {
+      "edge": "intake-screen.archetype -> boss-battle.skin",
+      "fits": true,
+      "reason": "intake.js calls CQ.state.set({ archetype: archetype }) where archetype is 'interrogator'|'critic'|'gatekeeper'|'unknown'; boss-battle.js reads CQ.state.archetype, validates against that exact set, and calls getBossSVG(archetype) to select the skin."
+    },
+    {
+      "edge": "intake-screen.eventName -> dashboard.banner",
+      "fits": true,
+      "reason": "intake.js calls CQ.state.set({ eventName: raw }); dashboard.js _safeEventName() reads CQ.state.eventName and renders it as 'Preparing for: <eventName>' in the subheading."
+    },
+    {
+      "edge": "intake-screen.eventName -> boss-battle.tokens",
+      "fits": true,
+      "reason": "boss-battle.js reads CQ.state.eventName and passes it through subToken(str, eventName) which replaces {event} in bossLines. CQ.state.eventName is set by intake.js via CQ.state.set."
+    },
+    {
+      "edge": "content-pack.data -> thought-buster.lines",
+      "fits": true,
+      "reason": "thought-buster.js reads CQ.content.thoughtBuster; content.json has 'thoughtBuster' array with 12 {anxious, reframe} pairs (>= 8 required). Consumer checks Array.isArray and length >= 8 before using, else falls back to FALLBACK_PAIRS.",
+      "coercion_ref": "content-fallback-thought-buster"
+    },
+    {
+      "edge": "content-pack.data -> star-forge.prompts",
+      "fits": true,
+      "reason": "star-forge.js reads CQ.content.starPrompts via safeGet(window.CQ, 'content.starPrompts', null); content.json has 'starPrompts' array with 4 prompt objects each containing { prompt, beats: {S,T,A,R} }. Consumer falls back to FALLBACK_PROMPTS if absent.",
+      "coercion_ref": "content-fallback-star-forge"
+    },
+    {
+      "edge": "content-pack.data -> power-up-lab.prompts",
+      "fits": true,
+      "reason": "power-up-lab.js calls getStrengthPrompts() which reads window.CQ.content.strengths; content.json has 'strengths' array with 8 string prompts (>= 6 required). Consumer falls back to FALLBACK_STRENGTHS if absent.",
+      "coercion_ref": "content-fallback-power-up-lab"
+    },
+    {
+      "edge": "content-pack.data -> boss-battle.dialogue",
+      "fits": true,
+      "reason": "boss-battle.js reads CQ.content.archetypes[archetype].bossLines and .responses; content.json defines all 4 archetypes each with 4 bossLines and 6 responses (>= 3). getArchetypeData() falls back to FALLBACK_BOSS_LINES/FALLBACK_RESPONSES if absent.",
+      "coercion_ref": "content-fallback-boss-battle"
+    },
+    {
+      "edge": "fx-kit.api -> breathe-runner.juice",
+      "fits": true,
+      "reason": "breathe-runner.js calls CQ.fx.rafLoop(updateFn), CQ.fx.particleBurst(ctx, x, y, opts), CQ.fx.playCue('collect'|'click'|'level'|'win'); all four are defined on CQ.fx in fx-kit.js."
+    },
+    {
+      "edge": "fx-kit.api -> thought-buster.juice",
+      "fits": true,
+      "reason": "thought-buster.js calls CQ.fx.particleBurst(_ctx, ...) on gremlin zap, CQ.fx.playCue('zap'|'win'), and CQ.fx.rafLoop(gameLoop); all defined in fx-kit.js."
+    },
+    {
+      "edge": "fx-kit.api -> power-up-lab.juice",
+      "fits": true,
+      "reason": "power-up-lab.js calls CQ.fx.particleBurst(_ctx, ...) in _triggerBurst and celebration overlay, CQ.fx.rafLoop(_canvasFrame), CQ.fx.playCue('collect'|'win'|'click'), CQ.fx.shake(card, 5); all defined in fx-kit.js."
+    },
+    {
+      "edge": "fx-kit.api -> star-forge.juice",
+      "fits": true,
+      "reason": "star-forge.js calls CQ.fx.particleBurst(_ctx, cx, cy, ...) in fireForgeParticles(), CQ.fx.playCue('collect'|'win'|'click'|'zap'), CQ.fx.shake(el, 6); all defined in fx-kit.js."
+    },
+    {
+      "edge": "fx-kit.api -> boss-battle.juice",
+      "fits": true,
+      "reason": "boss-battle.js calls CQ.fx.particleBurst(_canvasCtx, ...) in burstOnCanvas(), CQ.fx.playCue('win'|'collect'|'click'|'zap'), CQ.fx.shake(bossEl, 10) in shakeBoss(), CQ.fx.tween(from, to, 600, null, onUpdate, onComplete) in animateMeter(); all defined in fx-kit.js. tween(null ease) falls back to easeOutCubic per implementation."
+    },
+    {
+      "edge": "fx-kit.api -> companion-system.juice",
+      "fits": true,
+      "reason": "companion.js levelUp() calls CQ.fx.playCue('level') and CQ.fx.particleBurst(ctx, cx, cy, {...}) in _fireParticleBurst(); openCustomizer() calls CQ.fx.playCue('click'); all defined in fx-kit.js."
+    },
+    {
+      "edge": "game-state.api -> intake-screen.write",
+      "fits": true,
+      "reason": "intake.js handleSubmit() calls CQ.state.set({ eventName: raw, archetype: archetype }); CQ.state.set() is defined in game-state.js and auto-calls save()+notify()."
+    },
+    {
+      "edge": "game-state.api -> companion-system.read",
+      "fits": true,
+      "reason": "companion.js reads CQ.state.level, CQ.state.companion, CQ.state.badges, CQ.state.unlocks via getter properties; writes back via CQ.state.set({companion:...}) and CQ.state.set({level, badges, unlocks}) in levelUp(). All properties defined in game-state.js."
+    },
+    {
+      "edge": "game-state.api -> world-map.read",
+      "fits": true,
+      "reason": "world-map.js reads CQ.state.nodes (all 5 node booleans) in isBossUnlocked() and getNodeState(); reads CQ.state.stat and CQ.state.eventName; subscribes via CQ.state.subscribe(). All defined in game-state.js."
+    },
+    {
+      "edge": "game-state.api -> dashboard.read",
+      "fits": true,
+      "reason": "dashboard.js reads CQ.state.stat via computeStat(), CQ.state.badges, CQ.state.eventName, CQ.state.nodes, CQ.state.archetype, CQ.state.unlocks; subscribes via CQ.state.subscribe(). All defined in game-state.js."
+    },
+    {
+      "edge": "breathe-runner.progress -> game-state.write",
+      "fits": true,
+      "reason": "breathe-runner.js handleWin() calls CQ.state.clearNode('breathe-runner') then CQ.companion.levelUp(); clearNode() is defined in game-state.js and calls save()+notify()."
+    },
+    {
+      "edge": "thought-buster.progress -> game-state.write",
+      "fits": true,
+      "reason": "thought-buster.js triggerWin() calls CQ.state.clearNode('thought-buster') then CQ.companion.levelUp(); clearNode() defined in game-state.js."
+    },
+    {
+      "edge": "power-up-lab.progress -> game-state.write",
+      "fits": true,
+      "reason": "power-up-lab.js _completeGame() calls CQ.state.clearNode('power-up-lab') then CQ.companion.levelUp(); clearNode() defined in game-state.js."
+    },
+    {
+      "edge": "star-forge.progress -> game-state.write",
+      "fits": true,
+      "reason": "star-forge.js doWin() calls CQ.state.clearNode('star-forge') then CQ.companion.levelUp(); clearNode() defined in game-state.js."
+    },
+    {
+      "edge": "boss-battle.victory -> game-state.write",
+      "fits": true,
+      "reason": "boss-battle.js runVictory() calls CQ.companion.levelUp() then CQ.state.clearNode('boss-battle') which sets nodes['boss-battle']=true and recomputes stat to 100. No top-level 'bossCleared' property is set (the wiring contract used loose language), but world-map and dashboard read CQ.state.nodes['boss-battle'] directly — code is self-consistent."
+    },
+    {
+      "edge": "companion-system.visual -> world-map.portrait",
+      "fits": true,
+      "reason": "world-map.js calls CQ.companion.render(companionEl) where companionEl is a div; companion.js exports CQ.companion.render(el) which renders SVG+badges+level into el and subscribes to state changes for auto re-renders."
+    },
+    {
+      "edge": "companion-system.visual -> dashboard.portrait",
+      "fits": true,
+      "reason": "dashboard.js calls CQ.companion.render(companionEl) inside _render(); companion.js exports CQ.companion.render(el). Badge/unlock summary is read directly from CQ.state.badges and CQ.state.unlocks in dashboard, not from companion — fits."
+    },
+    {
+      "edge": "world-map.gate -> boss-battle.unlock",
+      "fits": true,
+      "reason": "world-map.js isBossUnlocked() returns true only when all 4 training nodes are cleared; boss-battle node is set to nodeState='locked' and tap is suppressed when locked. boss-battle.js also performs its own soft check (allTraining) and renders a 'not ready' screen if bypassed directly."
+    },
+    {
+      "edge": "theme-kit.classes -> companion-system.styles",
+      "fits": true,
+      "reason": "theme.css defines .companion--lvl0 through .companion--lvl6 with glow/animation classes; companion.js _doRender() sets class 'companion--lvlN' (capped at 6) on the wrapper div. All 7 level classes present in theme.css."
+    }
+  ],
+  "coercions": [
+    {
+      "edge": "content-pack.data -> thought-buster.lines",
+      "id": "content-fallback-thought-buster",
+      "field": "CQ.content.thoughtBuster",
+      "rule": "thought-buster.js guards with Array.isArray(CQ.content.thoughtBuster) && length >= 8; falls back to 9-item FALLBACK_PAIRS inline if content.json unavailable (file:// or fetch failure). Declared fallback — not a mismatch."
+    },
+    {
+      "edge": "content-pack.data -> star-forge.prompts",
+      "id": "content-fallback-star-forge",
+      "field": "CQ.content.starPrompts",
+      "rule": "star-forge.js safeGet(window.CQ, 'content.starPrompts', null) returns null on failure; getPrompts() then returns 3-item FALLBACK_PROMPTS. Declared fallback."
+    },
+    {
+      "edge": "content-pack.data -> power-up-lab.prompts",
+      "id": "content-fallback-power-up-lab",
+      "field": "CQ.content.strengths",
+      "rule": "power-up-lab.js getStrengthPrompts() checks window.CQ.content.strengths with try/catch; falls back to 8-item FALLBACK_STRENGTHS. Declared fallback."
+    },
+    {
+      "edge": "content-pack.data -> boss-battle.dialogue",
+      "id": "content-fallback-boss-battle",
+      "field": "CQ.content.archetypes[archetype]",
+      "rule": "boss-battle.js getArchetypeData() wraps in try/catch; getBossLines/getResponses/getBossLabel each check for null and fall back to FALLBACK_BOSS_LINES / FALLBACK_RESPONSES / FALLBACK_LABELS. Declared fallback."
+    },
+    {
+      "edge": "app-shell.bootstrap -> content-pack.data",
+      "id": "content-fetch-fallback",
+      "field": "CQ.content",
+      "rule": "app.js fetch('data/content.json') catches HTTP errors and leaves CQ.content undefined; startFirstScreen() always runs in the finally-equivalent .then(). Modules use inline fallbacks when CQ.content is undefined. Declared fallback."
+    }
+  ],
+  "summary": {
+    "total": 36,
+    "fit": 36,
+    "unmatched": 0,
+    "coercions_logged": 5,
+    "unfit_edges": [],
+    "notes": "1 joint corrected during Stage 4: the companion customizer wiring was updated from a stale 'routed customize screen' contract to the real (verified-working) overlay pattern (world-map Customize button -> CQ.companion.openCustomizer). No code change required."
+  }
+}

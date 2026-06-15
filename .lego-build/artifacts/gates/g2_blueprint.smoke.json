@@ -1,0 +1,38 @@
+{
+  "stage": "g2_blueprint",
+  "ok": true,
+  "ran_at": "2026-06-15T04:30:24+00:00",
+  "n_checks": 4,
+  "n_errors": 0,
+  "n_warnings": 0,
+  "findings": [
+    {
+      "check": "manifest",
+      "ok": true,
+      "severity": "info",
+      "msg": "14 bricks in manifest",
+      "details": {}
+    },
+    {
+      "check": "contracts",
+      "ok": true,
+      "severity": "info",
+      "msg": "every brick declares a stud + socket",
+      "details": {}
+    },
+    {
+      "check": "wiring",
+      "ok": true,
+      "severity": "info",
+      "msg": "38 wiring edges, no dangling joints",
+      "details": {}
+    },
+    {
+      "check": "dod_coverage",
+      "ok": true,
+      "severity": "info",
+      "msg": "every DoD condition maps to >=1 brick",
+      "details": {}
+    }
+  ]
+}

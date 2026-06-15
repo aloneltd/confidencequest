@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- Brick: app-shell | Stud: all CQ.* modules | Socket: index.html -->
+<!-- Entry point for ConfidenceQuest. Defines DOM structure and script load order. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1A1040" />
+  <meta name="description" content="ConfidenceQuest — train your confidence before the big moment." />
+  <title>ConfidenceQuest</title>
+  <link rel="stylesheet" href="css/theme.css" />
+</head>
+<body>
+
+  <!-- Fixed top header: logo + event banner + confidence stat bar (injected by CQ.dashboard.renderBar) -->
+  <header id="app-header" role="banner">
+    <span class="header-logo" aria-label="ConfidenceQuest">CQ</span>
+    <span class="header-event" id="header-event" aria-live="polite" aria-label="Current event"></span>
+    <!-- CQ.dashboard.renderBar() appends .stat-bar-wrap here -->
+  </header>
+
+  <!-- Main app viewport: screen sections are shown/hidden by CQ.app.showScreen -->
+  <div id="app">
+    <main id="app-content" role="main">
+
+      <!-- Each section starts empty; the matching screen module renders into it on mount. -->
+      <section class="screen" id="screen-intake"        aria-label="Intake"></section>
+      <section class="screen" id="screen-world-map"     aria-label="World Map"></section>
+      <section class="screen" id="screen-breathe-runner"  aria-label="Breathe Runner"></section>
+      <section class="screen" id="screen-thought-buster"  aria-label="Thought Buster"></section>
+      <section class="screen" id="screen-power-up-lab"    aria-label="Power-Up Lab"></section>
+      <section class="screen" id="screen-star-forge"      aria-label="Star Forge"></section>
+      <section class="screen" id="screen-boss-battle"     aria-label="Boss Battle"></section>
+      <section class="screen" id="screen-dashboard"       aria-label="Dashboard"></section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       Script load order — MUST match INTERFACES.md exactly.
+       Each file reads window.CQ which is initialised by game-state.js first.
+       app.js is LAST so it can reference all registered screens.
+  ════════════════════════════════════════════════════════════════════════ -->
+  <script src="js/game-state.js"></script>
+  <script src="js/fx-kit.js"></script>
+  <script src="js/companion.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/intake.js"></script>
+  <script src="js/world-map.js"></script>
+  <script src="js/games/breathe-runner.js"></script>
+  <script src="js/games/thought-buster.js"></script>
+  <script src="js/games/power-up-lab.js"></script>
+  <script src="js/games/star-forge.js"></script>
+  <script src="js/games/boss-battle.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{"ts": "2026-06-14T18:26:24+00:00", "event": "running", "stage": "0-box-art", "brick": "box-art-architect", "who": "Priya · Product Designer", "what": "drawing the picture of done — what the confidence game looks like when it works + the 3 Definition-of-Done conditions"}
+{"ts": "2026-06-15T04:06:36+00:00", "event": "running", "stage": "0-box-art", "brick": "box-art-architect", "who": "Priya · Product Designer", "what": "REPAINTING the box art — vibrant character-driven arcade/RPG: an avatar companion + several mini-games (Mario/Pokemon energy)"}
+--stage
+{"ts": "2026-06-15T04:26:44+00:00", "event": "running", "stage": "2-blueprint", "brick": "blueprint-architect", "who": "blueprint-architect", "what": "architecting the whole Set — brick manifest + wiring diagram for ConfidenceQuest's 5 mini-games, boss battle, avatar, state & shell"}
+{"ts": "2026-06-15T04:32:30+00:00", "event": "running", "stage": "3-snap", "brick": "game-state", "who": "game-state", "what": "building the shared GameState singleton + localStorage persistence"}
+{"ts": "2026-06-15T04:32:30+00:00", "event": "running", "stage": "3-snap", "brick": "fx-kit", "who": "fx-kit", "what": "building the Canvas particle/juice + WebAudio cue library"}
+{"ts": "2026-06-15T04:32:30+00:00", "event": "running", "stage": "3-snap", "brick": "theme-kit", "who": "theme-kit", "what": "building the palette, design tokens & responsive CSS"}
+{"ts": "2026-06-15T04:32:30+00:00", "event": "running", "stage": "3-snap", "brick": "content-pack", "who": "content-pack", "what": "authoring the static content — boss trees, reframes, STAR & strengths prompts"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "intake-screen", "who": "intake-screen", "what": "building the name-your-dread intake + archetype mapper"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "companion-system", "who": "companion-system", "what": "building the avatar customizer, leveling glow & badges"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "world-map", "who": "world-map", "what": "building the RPG level map with node gating"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "breathe-runner", "who": "breathe-runner", "what": "building the breath-rhythm platformer"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "thought-buster", "who": "thought-buster", "what": "building the anxious-thought wave shooter"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "power-up-lab", "who": "power-up-lab", "what": "building the strengths/courage-crystal collector"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "star-forge", "who": "star-forge", "what": "building the STAR behavioral-interview trainer"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "boss-battle", "who": "boss-battle", "what": "building the archetype-themed Doubt Boss fight"}
+{"ts": "2026-06-15T04:36:30+00:00", "event": "running", "stage": "3-snap", "brick": "dashboard", "who": "dashboard", "what": "building the Confidence Stat panel + readiness recap"}
+{"ts": "2026-06-15T04:42:12+00:00", "event": "running", "stage": "3-snap", "brick": "app-shell", "who": "app-shell", "what": "building index.html + app.js — the boot sequence and screen router that mounts the whole Set"}
+{"ts": "2026-06-15T04:44:33+00:00", "event": "running", "stage": "3-snap", "brick": "brick-tester", "who": "Leo · QA Engineer", "what": "Leo running contract tests — syntax, JSON validity, and registration checks on all 14 bricks"}
+{"ts": "2026-06-15T04:48:36+00:00", "event": "running", "stage": "4-connect", "brick": "connector-validator", "who": "Hannah · Integration QA", "what": "Hermione asserting every wiring edge — does each brick's output satisfy the next brick's input contract?"}
+{"ts": "2026-06-15T04:58:27+00:00", "event": "running", "stage": "5-finishing", "brick": "red-team", "who": "Rick · Red-Team Lead", "what": "Rick trying to break ConfidenceQuest — edge cases, broken inputs, fatal-flaw pre-mortem"}
+{"ts": "2026-06-15T04:58:27+00:00", "event": "running", "stage": "5-finishing", "brick": "finishing-auditor", "who": "Hermione · QA Lead", "what": "Hermione auditing the 3 Killers + the 90% line + error handling"}
+{"ts": "2026-06-15T05:04:46+00:00", "event": "running", "stage": "5-finishing", "brick": "fixer", "who": "fixer", "what": "Maya applying the P1 replay-levelUp guard + cheap hardening (event length cap, touch targets, observer disconnect, localStorage whitelist)"}
+{"ts": "2026-06-15T07:39:28+00:00", "event": "running", "stage": "6-ship", "brick": "shipper", "who": "Diego · Release Engineer", "what": "Diego shipping it — repo, Vercel deploy, live URL"}

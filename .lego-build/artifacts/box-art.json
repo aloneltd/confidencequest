@@ -1,0 +1,40 @@
+{
+  "name": "ConfidenceQuest",
+  "tagline": "Name your dread, grow your hero, defeat the Doubt Boss — and walk into the real thing ready.",
+  "what_it_does": "ConfidenceQuest is a vibrant arcade RPG in your browser: name what's scaring you (interview, presentation, hard conversation, date), customize your Companion creature, then fight through FIVE genuinely fun mini-games — a rhythm platformer, a thought-zapping wave shooter, a strength-collecting lab, a STAR Forge that trains you to nail behavioral 'tell me about a time…' interview answers (Situation → Task → Action → Result), and a climactic boss battle against a Doubt Boss themed to your exact event. Your Companion visibly grows bolder, gains badges, and unlocks new body types, colors, and accessories as you level up. No login, no server — runs entirely in your browser and remembers your progress.",
+  "run_shape": {
+    "target": "web_app",
+    "scope": "ship",
+    "tier": "large",
+    "depth": "deep"
+  },
+  "wireframe": [
+    [
+      {"label": "ConfidenceQuest logo + [YOUR EVENT NAME] banner", "grow": 3},
+      {"label": "Confidence Stat panel (0–100%)", "grow": 1}
+    ],
+    [
+      {"label": "WORLD MAP — 5 level nodes: Breathe Runner | Thought Buster | Power-Up Lab | STAR Forge | BOSS BATTLE (cleared nodes glow gold; locked nodes dim)", "grow": 3},
+      {"label": "Companion portrait — glow level, earned badges + unlocked accessories", "grow": 1}
+    ],
+    [
+      {"label": "Tap a node to enter — or CONTINUE from last checkpoint", "grow": 2},
+      {"label": "Customize Companion", "grow": 1},
+      {"label": "My Stats", "grow": 1}
+    ]
+  ],
+  "how_it_works": [
+    "Player arrives at the live URL, types the name of what scares them ('job interview at Google'), and picks a Companion creature — body shape, color, and expression style from a small palette.",
+    "The game maps the entry to one of four Boss archetypes (Interrogator / Critic / Gatekeeper / Unknown) and personalizes all mini-game dialogue and the Boss skin to that archetype plus the player's exact typed event name.",
+    "Player travels the World Map, choosing nodes in any order: Breathe Runner (rhythm platformer — jump to breath cadence), Thought Buster (wave-shooter — zap anxious-thought gremlins and watch reframes explode in their place), Power-Up Lab (collect Courage Crystals by naming real strengths and past wins), and STAR Forge (a behavioral-interview trainer — assemble a real 'tell me about a time…' story into the correct Situation → Task → Action → Result order to forge a Courage weapon, earning bonus points for a complete, well-structured answer).",
+    "Each completed node fills the Confidence Stat panel, and the Companion visibly levels up — gains glow, color intensity, a badge, and unlocks new customization options (body types, colors, accessories) — with a particle burst and level-up sound cue.",
+    "When the four training nodes are cleared, the BOSS BATTLE unlocks: the Doubt Boss themed to the player's archetype appears in full illustrated glory. The player builds a Courage Meter by choosing event-specific courage-responses in a Pokémon-style turn sequence until the meter is full and the Boss is defeated.",
+    "On victory, the Companion reaches its final evolved form, the dashboard shows 100% Confidence Stat, and the player sees a personalized readiness summary — all saved to localStorage so they can return the morning of the real event and see their wins."
+  ],
+  "dod": [
+    "DoD-1: A first-time player who names their event, customizes their Companion, and completes all five nodes (Breathe Runner, Thought Buster, Power-Up Lab, STAR Forge, Boss Battle) sees the Companion visibly change state at least twice (glow + badge) and the Confidence Stat panel reach 100%, with zero JS console errors. (checkable: stranger cold-runs the full path, screenshots final dashboard, opens DevTools — Companion must show two distinct visual changes, panel must read 100%, console must be clean)",
+    "DoD-2: A player who enters 'job interview' reaches Boss Battle and sees the Interrogator skin with at least 3 interview-specific Courage-response options; a player who enters 'presentation' sees the Critic skin with at least 3 presentation-specific options instead. (checkable: tester runs the game twice with the two event names, screenshots the Boss Battle screen both times — confirms visually distinct Boss skin and at least 3 event-labeled response options per run)",
+    "DoD-3: A returning player who reopens the URL on the same device (without clearing browser storage) sees their Companion's badges, their event name, their Confidence Stat percentage, and their completed level-map nodes restored exactly as they were at end of their last session. (checkable: tester completes 2+ nodes, closes browser entirely, reopens URL — screenshots level map and dashboard and confirms badge count, stat %, event name, and cleared-node states match prior session screenshot)"
+  ],
+  "wall": "The wall: Delivering four genuinely distinct arcade mini-games (real-time rhythm platformer, wave-shooter, collection mechanic, turn-based boss battle) that all share a single live Companion/stat state in a zero-dependency static browser app — without a game engine or server — while keeping animation feeling juicy (particles, level-up bursts, responsive controls) across desktop and mobile. Candidate: build each mini-game as a self-contained Canvas/DOM module reading from and writing to one shared plain-JS GameState singleton serialized to localStorage; use requestAnimationFrame loops per module and a lightweight vanilla Canvas 2D particle system; Companion visual state driven by CSS class set from GameState.level so all modules always agree. Fallback: simplify Breathe Runner and Thought Buster to DOM-animated interactions instead of Canvas — less arcade-juicy but still interactive — keeping Boss Battle as the only full Canvas module and leaving the shared-state architecture identical."
+}

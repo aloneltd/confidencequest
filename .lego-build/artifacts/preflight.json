@@ -1,0 +1,45 @@
+{
+  "all_ok": true,
+  "stack": [
+    {
+      "name": "GitHub",
+      "cli": "gh",
+      "installed": true,
+      "authenticated": true,
+      "fix": [
+        "brew install gh",
+        "gh auth login          # choose GitHub.com, HTTPS, login with a browser"
+      ]
+    },
+    {
+      "name": "Vercel",
+      "cli": "vercel",
+      "installed": true,
+      "authenticated": true,
+      "fix": [
+        "npm i -g vercel",
+        "vercel login           # email / GitHub, confirm in browser"
+      ]
+    },
+    {
+      "name": "Supabase",
+      "cli": "supabase",
+      "installed": true,
+      "authenticated": true,
+      "fix": [
+        "brew install supabase/tap/supabase   # or: npm i -g supabase",
+        "supabase login         # paste a personal access token from the dashboard"
+      ]
+    },
+    {
+      "name": "Google",
+      "cli": "gcloud",
+      "installed": true,
+      "authenticated": true,
+      "fix": [
+        "gcloud auth login      # (only if you build Google APIs directly)",
+        "Otherwise: add Google as a Supabase Auth provider in the Supabase dashboard (one-time)"
+      ]
+    }
+  ]
+}

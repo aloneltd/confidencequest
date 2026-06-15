@@ -1,0 +1,38 @@
+{
+  "stage": "g0_box_art",
+  "ok": true,
+  "ran_at": "2026-06-15T04:25:46+00:00",
+  "n_checks": 4,
+  "n_errors": 0,
+  "n_warnings": 0,
+  "findings": [
+    {
+      "check": "box_art_exists",
+      "ok": true,
+      "severity": "info",
+      "msg": "box-art.md present",
+      "details": {}
+    },
+    {
+      "check": "dod_count",
+      "ok": true,
+      "severity": "info",
+      "msg": "3 Definition-of-Done conditions present",
+      "details": {}
+    },
+    {
+      "check": "wall_named",
+      "ok": true,
+      "severity": "info",
+      "msg": "a technical wall is pre-mapped",
+      "details": {}
+    },
+    {
+      "check": "run_shape_frozen",
+      "ok": true,
+      "severity": "info",
+      "msg": "frozen: scope=ship target=web_app tier=large",
+      "details": {}
+    }
+  ]
+}

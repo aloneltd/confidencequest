@@ -1,0 +1,38 @@
+{
+  "stage": "g5_finishing",
+  "ok": true,
+  "ran_at": "2026-06-15T05:08:42+00:00",
+  "n_checks": 4,
+  "n_errors": 0,
+  "n_warnings": 0,
+  "findings": [
+    {
+      "check": "dod",
+      "ok": true,
+      "severity": "info",
+      "msg": "all 3 Definition-of-Done conditions pass",
+      "details": {}
+    },
+    {
+      "check": "killer",
+      "ok": true,
+      "severity": "info",
+      "msg": "no active killer (polish-loop / shiny-object / wall)",
+      "details": {}
+    },
+    {
+      "check": "ninety",
+      "ok": true,
+      "severity": "info",
+      "msg": "works the majority of the time; errors known & non-catastrophic",
+      "details": {}
+    },
+    {
+      "check": "morty",
+      "ok": true,
+      "severity": "info",
+      "msg": "a blind user triggered the Set in their own words",
+      "details": {}
+    }
+  ]
+}

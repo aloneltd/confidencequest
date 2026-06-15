@@ -1,0 +1,14 @@
+# OS / editor junk
+.DS_Store
+*.log
+Thumbs.db
+
+# Vercel
+.vercel
+
+# Local dev server logs
+/tmp/cq_server.log
+
+node_modules/
+.env
+.env.local

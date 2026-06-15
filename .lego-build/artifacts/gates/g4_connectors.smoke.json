@@ -1,0 +1,24 @@
+{
+  "stage": "g4_connectors",
+  "ok": true,
+  "ran_at": "2026-06-15T04:52:40+00:00",
+  "n_checks": 2,
+  "n_errors": 0,
+  "n_warnings": 0,
+  "findings": [
+    {
+      "check": "connectors_fit",
+      "ok": true,
+      "severity": "info",
+      "msg": "38 joints validated, all fit",
+      "details": {}
+    },
+    {
+      "check": "coercions_logged",
+      "ok": true,
+      "severity": "info",
+      "msg": "5 boundary coercion(s) logged",
+      "details": {}
+    }
+  ]
+}
