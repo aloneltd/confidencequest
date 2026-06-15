@@ -46,15 +46,17 @@
     },
     "6-ship": {
       "started_at": null,
-      "ended_at": null,
+      "ended_at": "2026-06-15T07:44:46+00:00",
       "attempts": 0,
-      "status": "pending"
+      "status": "completed",
+      "gate": "pass"
     },
     "7-catalogue": {
       "started_at": null,
-      "ended_at": null,
+      "ended_at": "2026-06-15T07:47:49+00:00",
       "attempts": 0,
-      "status": "pending"
+      "status": "completed",
+      "gate": "pass"
     }
   }
 }

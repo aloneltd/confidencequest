@@ -1,0 +1,106 @@
+{
+  "name": "ConfidenceQuest",
+  "summary": "A zero-dependency, zero-login browser RPG that runs real confidence psychology (CBT reframing, nervous-system regulation, STAR behavioral-interview training, strength-identification) hidden under five distinct arcade mini-games and a boss battle. The player names their specific dread (interview, presentation, hard conversation, date), gets a customizable animated Companion that visibly evolves as they progress, and leaves with a charged Courage Meter and a personalised post-victory readiness summary. All progress is localStorage-persisted; ships as a static HTML/CSS/JS site with zero build step.",
+  "build_target": "web_app",
+  "brick_manifest": "/Users/marksefaradi/Documents/Claude/WorkflowA/confidence-game/.lego-build/artifacts/brick-manifest.json",
+  "parameters": [
+    {
+      "name": "event_archetypes",
+      "desc": "The four boss themes in data/content.json → archetypes. Each archetype has: label (display name), event (the thing the player fears), taunt (opening boss line), bossLines[] (4 narrative attack lines with {event} token), responses[] (6 courage-response options each with text + courage value). Swap these four objects to completely re-skin the game for a different domain.",
+      "example": "interview/presentation/conversation/date → swap for exam/audition/sales-pitch/performance-review; or clinical: panic-attack/social-situation/job-loss/medical-appointment"
+    },
+    {
+      "name": "thought_buster_pairs",
+      "desc": "data/content.json → thoughtBuster array. Each entry is {anxious: string, reframe: string}. The anxious thought appears on a gremlin in the wave-shooter; the reframe replaces it on zap. 12 pairs ship by default. Swap these to target a different anxiety domain — academic anxiety, health anxiety, performance anxiety, etc.",
+      "example": "Default: 'I'm going to blank out completely' → 'Blanking is rare when you've prepared even a little…'. Academic variant: 'I haven't studied enough' → 'You know more than you think — the act of sitting the exam surfaces memory.'"
+    },
+    {
+      "name": "star_prompts",
+      "desc": "data/content.json → starPrompts array. Each entry is {prompt: string, beats: {S, T, A, R}} — the behavioral-interview question the player responds to, plus coaching text for each STAR beat shown in the STAR Forge mini-game. Swap prompts to target different behavioral competencies or use a completely different storytelling framework (e.g., PAR — Problem/Action/Result — for non-interview contexts).",
+      "example": "Default: 'Tell me about a time you solved a problem under pressure.' → variant for medical school interviews: 'Describe a situation where you had to deliver difficult news to someone.'"
+    },
+    {
+      "name": "strengths_prompts",
+      "desc": "data/content.json → strengths array. A list of 8 reflective prompts shown in Power-Up Lab to help the player surface their real strengths. Swap for prompts calibrated to a specific audience — creative professionals, athletes, students, new parents, etc.",
+      "example": "Default: 'Think of a moment when someone came to you for help…'. Athlete variant: 'Name a physical or mental quality you've built through training that people outside sport rarely develop.'"
+    },
+    {
+      "name": "palette",
+      "desc": "css/theme.css → :root custom properties. Six core brand tokens drive every screen and companion glow: --amber (#F5A623), --teal (#00C9B1), --gold (#FFD700), --coral (#FF6B6B), --bg (#1A1040 deep indigo), --accent-glow (#A855F7 purple). Replace these six values to completely re-skin without touching any other CSS.",
+      "example": "Default: warm amber / vivid teal / electric gold / soft coral / deep indigo. Academic calm variant: slate blue (#3B5998) / mint (#4ECDC4) / gold (#F7B731) / peach (#FF9F43) / dark navy (#1E2D4D). Clinical trust variant: deep teal (#006D6F) / warm sand (#F2C49B) / cobalt (#2563EB) / soft sage (#8FB996) / dark slate (#0F2027)."
+    },
+    {
+      "name": "game_title_branding",
+      "desc": "The game name appears in index.html (title + header logo), the localStorage key (js/game-state.js → 'confidencequest.v1'), and box-art.md / PROJECT.md. Three files to update for a full rebrand.",
+      "example": "Default: 'ConfidenceQuest'. Alternatives: 'ExamReady', 'PitchForge', 'CourageLab', 'InterviewUnlocked'. Also update the localStorage key so saves don't collide with a sibling deploy."
+    },
+    {
+      "name": "companion_option_sets",
+      "desc": "js/companion.js defines the body types (emoji/SVG set), color palette options, and expression options shown in the Companion customization screen, plus the unlockable accessories awarded as level-up rewards. Swap these sets to fit the tone of the new domain — animals, robots, plants, geometric mascots, etc.",
+      "example": "Default: creature body types (e.g., blob, dragon, cat) with teal/gold/coral/amber color choices. Academic variant: owl, fox, robot; colors: blue, green, purple, orange."
+    },
+    {
+      "name": "mini_game_set",
+      "desc": "Which of the five mini-games ship. Each game is a self-contained module in js/games/ that reads/writes only via GameState singleton. You can remove any module from the world map (js/world-map.js node list) and from app.js's showScreen router without touching the others. Breathe Runner (rhythm/breath) and Thought Buster (CBT reframe) are the two most domain-agnostic; STAR Forge is interview-specific and should be swapped or removed for non-interview contexts.",
+      "example": "Full set: Breathe Runner + Thought Buster + Power-Up Lab + STAR Forge + Boss Battle. Interview-only lite set: Thought Buster + STAR Forge + Boss Battle (3 nodes). Mindfulness variant: replace STAR Forge with 'Values Forge' — the player orders core values instead of story beats."
+    },
+    {
+      "name": "archetype_keyword_map",
+      "desc": "js/intake.js → mapEventToArchetype(text) function. A plain-JS keyword-matching function that maps free-text input to one of the four archetype keys (interrogator / critic / gatekeeper / unknown). Extend or replace the keyword lists when adding new archetypes or renaming existing ones.",
+      "example": "Default keywords: 'interview' → interrogator; 'present|talk|pitch|speak' → critic; 'conversation|confront|difficult|tell' → gatekeeper; 'date' → unknown. Add 'exam|test|finals' → studyBoss if adding an academic archetype."
+    },
+    {
+      "name": "localStorage_key",
+      "desc": "js/game-state.js → the string 'confidencequest.v1' used as the localStorage key. Change this when deploying a sibling instance so saves don't share or collide. Include a version suffix so schema changes can be detected and the old data can be migrated or cleared gracefully.",
+      "example": "Default: 'confidencequest.v1'. Sibling: 'examready.v1', 'pitchforge.v1'. Increment to '.v2' when breaking changes are made to the GameState schema."
+    }
+  ],
+  "reuse_instructions": "1. Copy the template: unzip confidencequest-template.zip into a new folder. 2. Fill the parameters: edit data/content.json (event_archetypes, thought_buster_pairs, star_prompts, strengths_prompts) and css/theme.css (:root tokens for palette). 3. Rebrand: find-replace the game title in index.html and js/game-state.js (localStorage key). 4. Optionally swap companion option sets in js/companion.js and adjust the mini-game set in js/world-map.js + js/app.js. 5. Deploy: push to a GitHub repo, connect to Vercel (or any static host) — zero build step, no dependencies. 6. Re-instantiate via the orchestrator: run /lego-omni-planner-v2 --reuse ConfidenceQuest in the new folder to get a guided rebuild with the filled parameters validated against DoD.",
+  "template_path": "/Users/marksefaradi/Documents/Claude/WorkflowA/confidence-game/.lego-build/artifacts/confidencequest-template.zip",
+  "deployment": {
+    "live_url": "https://confidence-game-nine.vercel.app",
+    "repo": "https://github.com/aloneltd/confidencequest",
+    "vercel_project": "confidence-game",
+    "supabase_ref": null,
+    "auto_deploy": true,
+    "update": "edit source → git add -A && git commit -m 'change' → git push → Vercel auto-redeploys to live URL in ~1 min"
+  },
+  "dod": [
+    "DoD-1: A first-time player who completes all five mini-games sees the Companion change state >=2 times (glow + badge) and the Confidence Stat reach 100%, with zero JS console errors.",
+    "DoD-2: 'job interview' input → Interrogator boss skin + >=3 interview-specific courage responses; 'presentation' → Critic skin + different responses. Player's typed event name is substituted into boss dialogue.",
+    "DoD-3: A returning player (no login, same device) has badges, event name, Confidence Stat %, and cleared map nodes restored from localStorage on reopen."
+  ],
+  "architecture_notes": {
+    "pattern": "Singleton GameState + localStorage serializer; hard section-swap screen router (no framework/router lib); one requestAnimationFrame loop per mini-game module (self-contained Canvas 2D); CSS class-driven companion visual state (.companion--lvlN); shared fx-kit (particleBurst, rafLoop, tween, playCue via WebAudio oscillators); zero build step, zero dependencies, zero login, zero server.",
+    "key_files": {
+      "entry": "index.html",
+      "router": "js/app.js",
+      "state": "js/game-state.js",
+      "fx": "js/fx-kit.js",
+      "companion": "js/companion.js",
+      "content": "data/content.json",
+      "theme": "css/theme.css",
+      "intake": "js/intake.js",
+      "world_map": "js/world-map.js",
+      "dashboard": "js/dashboard.js",
+      "mini_games": [
+        "js/games/breathe-runner.js",
+        "js/games/thought-buster.js",
+        "js/games/power-up-lab.js",
+        "js/games/star-forge.js",
+        "js/games/boss-battle.js"
+      ]
+    },
+    "reusable_primitives": [
+      "Canvas 2D requestAnimationFrame loop (fx-kit.rafLoop)",
+      "Singleton GameState + localStorage serializer (game-state.js)",
+      "CSS class-driven avatar/companion state system (.companion--lvl0..6)",
+      "Four-archetype free-text intake mapper (intake.js → mapEventToArchetype)",
+      "Particle burst system — vanilla Canvas 2D, zero assets (fx-kit.js → particleBurst)",
+      "WebAudio oscillator sound cue bank (fx-kit.js → playCue)"
+    ]
+  },
+  "template_size_kb": 109.7,
+  "catalogued_date": "2026-06-15",
+  "cataloguer": "Cara / Stage 7 Cataloguer"
+}

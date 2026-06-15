@@ -1,0 +1,24 @@
+{
+  "stage": "g7_catalogue",
+  "ok": true,
+  "ran_at": "2026-06-15T07:47:49+00:00",
+  "n_checks": 2,
+  "n_errors": 0,
+  "n_warnings": 0,
+  "findings": [
+    {
+      "check": "fields",
+      "ok": true,
+      "severity": "info",
+      "msg": "catalogue entry 'ConfidenceQuest' complete",
+      "details": {}
+    },
+    {
+      "check": "parameters",
+      "ok": true,
+      "severity": "info",
+      "msg": "10 parameters make it reusable",
+      "details": {}
+    }
+  ]
+}

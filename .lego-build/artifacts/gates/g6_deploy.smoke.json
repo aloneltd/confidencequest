@@ -1,0 +1,45 @@
+{
+  "stage": "g6_deploy",
+  "ok": true,
+  "ran_at": "2026-06-15T07:44:33+00:00",
+  "n_checks": 5,
+  "n_errors": 0,
+  "n_warnings": 0,
+  "findings": [
+    {
+      "check": "deploy_checklist",
+      "ok": true,
+      "severity": "info",
+      "msg": "all 10 deploy items checked",
+      "details": {}
+    },
+    {
+      "check": "human_go",
+      "ok": true,
+      "severity": "info",
+      "msg": "human ship approval recorded",
+      "details": {}
+    },
+    {
+      "check": "live_url",
+      "ok": true,
+      "severity": "info",
+      "msg": "live at https://confidence-game-nine.vercel.app",
+      "details": {}
+    },
+    {
+      "check": "git_remote",
+      "ok": true,
+      "severity": "info",
+      "msg": "repo: https://github.com/aloneltd/confidencequest",
+      "details": {}
+    },
+    {
+      "check": "auto_deploy",
+      "ok": true,
+      "severity": "info",
+      "msg": "Vercel↔GitHub connected — future `git push` auto-redeploys",
+      "details": {}
+    }
+  ]
+}

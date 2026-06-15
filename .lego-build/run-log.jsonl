@@ -22,3 +22,4 @@
 {"ts": "2026-06-15T04:58:27+00:00", "event": "running", "stage": "5-finishing", "brick": "finishing-auditor", "who": "Hermione · QA Lead", "what": "Hermione auditing the 3 Killers + the 90% line + error handling"}
 {"ts": "2026-06-15T05:04:46+00:00", "event": "running", "stage": "5-finishing", "brick": "fixer", "who": "fixer", "what": "Maya applying the P1 replay-levelUp guard + cheap hardening (event length cap, touch targets, observer disconnect, localStorage whitelist)"}
 {"ts": "2026-06-15T07:39:28+00:00", "event": "running", "stage": "6-ship", "brick": "shipper", "who": "Diego · Release Engineer", "what": "Diego shipping it — repo, Vercel deploy, live URL"}
+{"ts": "2026-06-15T07:44:54+00:00", "event": "running", "stage": "7-catalogue", "brick": "cataloguer", "who": "Cara · Knowledge Manager", "what": "packaging ConfidenceQuest into a reusable, parameterized Catalogue entry + zip"}

@@ -1,0 +1,20 @@
+{
+  "dod_verified": true,
+  "error_handling": true,
+  "trigger_tested_by_other": true,
+  "output_verified_e2e": true,
+  "monitoring": true,
+  "documentation": true,
+  "announced": true,
+  "secrets_secured": true,
+  "secrets_in_env": true,
+  "hosting_chosen": "vercel",
+  "deployed": true,
+  "git_remote": "https://github.com/aloneltd/confidencequest",
+  "auto_deploy_connected": true,
+  "live_url": "https://confidence-game-nine.vercel.app",
+  "live_url_verified": true,
+  "supabase_ref": null,
+  "project_record": "PROJECT.md",
+  "notes": "Static zero-dependency site, no secrets/env needed. Production alias is public (HTTP 200, assets + content.json verified). Raw per-deployment URL is 401 (Vercel default protection on that variant) but the production alias is the public shareable link. Git connected: every push to main auto-redeploys."
+}

@@ -41,18 +41,19 @@
        Each file reads window.CQ which is initialised by game-state.js first.
        app.js is LAST so it can reference all registered screens.
   ════════════════════════════════════════════════════════════════════════ -->
-  <script src="js/game-state.js"></script>
-  <script src="js/fx-kit.js"></script>
-  <script src="js/companion.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/intake.js"></script>
-  <script src="js/world-map.js"></script>
-  <script src="js/games/breathe-runner.js"></script>
-  <script src="js/games/thought-buster.js"></script>
-  <script src="js/games/power-up-lab.js"></script>
-  <script src="js/games/star-forge.js"></script>
-  <script src="js/games/boss-battle.js"></script>
-  <script src="js/app.js"></script>
+  <!-- defer: download all in parallel, execute in order after HTML parse (fast first paint) -->
+  <script defer src="js/game-state.js"></script>
+  <script defer src="js/fx-kit.js"></script>
+  <script defer src="js/companion.js"></script>
+  <script defer src="js/dashboard.js"></script>
+  <script defer src="js/intake.js"></script>
+  <script defer src="js/world-map.js"></script>
+  <script defer src="js/games/breathe-runner.js"></script>
+  <script defer src="js/games/thought-buster.js"></script>
+  <script defer src="js/games/power-up-lab.js"></script>
+  <script defer src="js/games/star-forge.js"></script>
+  <script defer src="js/games/boss-battle.js"></script>
+  <script defer src="js/app.js"></script>
 
 </body>
 </html>

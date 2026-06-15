@@ -421,8 +421,6 @@ window.CQ.screens = window.CQ.screens || {};
 
       // Outer glow
       var grd = ctx.createRadialGradient(cx, cy, r * 0.3, cx, cy, r * 1.6);
-      grd.addColorStop(0, color.replace(')', ',0.22)').replace('rgb', 'rgba').replace('#', 'rgba(').replace('rgba(', 'rgba('));
-      // Simpler: just use rgba strings
       grd.addColorStop(0, hexAlpha(color, 0.22));
       grd.addColorStop(1, hexAlpha(color, 0.00));
       ctx.fillStyle = grd;

@@ -85,11 +85,8 @@ window.CQ = window.CQ || {};
     ctx.save();
     ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
 
-    // Glow
+    // Glow (via shadow — simple and safe for hex colors)
     if (glowR > 0) {
-      var grad = ctx.createRadialGradient(x, y, 0, x, y, glowR * 2.5);
-      grad.addColorStop(0, color.replace(')', ', 0.45)').replace('rgb', 'rgba').replace('#', 'rgba(').replace('rgba(', ''));
-      // fallback safe glow
       ctx.shadowColor = color;
       ctx.shadowBlur  = glowR * 2;
     }

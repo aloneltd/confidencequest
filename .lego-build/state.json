@@ -3,7 +3,7 @@
   "task": "Build an online game that helps someone who has lost confidence rebuild it — pushing away anxiety and getting them ready for things they need to do",
   "build_folder": "/Users/marksefaradi/Documents/Claude/WorkflowA/confidence-game",
   "stage": "0-box-art",
-  "status": "box-art",
+  "status": "complete",
   "build_scope": "ship",
   "blueprint_depth": "deep",
   "build_target": "web_app",
@@ -17,6 +17,6 @@
     "spent": 0,
     "max": 6
   },
-  "updated_at": "2026-06-15T07:39:28+00:00",
+  "updated_at": "2026-06-15T07:47:49+00:00",
   "ship_go": true
 }
