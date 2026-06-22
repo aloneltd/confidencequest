@@ -24,6 +24,35 @@ Because every device is on the same account, **Claude Code cloud sessions sync a
 
 For cloud work, you're already done.
 
+## Keeping sessions synced (continue everywhere)
+
+There is **no single "sync all sessions" toggle**. Whether a session syncs depends
+on *where it runs*:
+
+| | Cloud session | Local session |
+|---|---|---|
+| Runs on | Anthropic cloud | One specific Mac |
+| Syncs across devices? | ✅ Yes, automatically | ❌ No — tied to that machine |
+
+To make work continue everywhere, follow two rules:
+
+**1. Default to cloud/remote sessions.** They sync automatically across all devices on
+the same account.
+- Mobile → Code tab (cloud by default) ✅
+- Desktop app → pick the **Remote / cloud** environment, not "This computer"
+- Terminal → use `claude --remote` instead of plain `claude`
+
+**2. For sessions that must run locally, turn on Remote Control** so the machine's
+session is reachable from your other devices (run in server mode for several at once):
+
+```bash
+# on the host Mac (the always-on Mac mini is ideal):
+claude remote-control --name "mini-local"
+```
+
+> Rule of thumb: **start sessions as cloud/remote and they sync everywhere; use Remote
+> Control only for the occasional session that has to run on a specific Mac.**
+
 ## What does NOT sync automatically
 
 The Desktop app syncs **cloud sessions**, not the **files on disk** between your two Macs.
